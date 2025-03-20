@@ -1,32 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App-1</title>
+    <title>Rombo Geométrico</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .rombo {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            transform: rotate(45deg);
+            position: relative;
+        }
+        .nombre-app {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>App-1</h1>
-    <p>Fecha actual: <strong id="fecha"></strong></p>
-    <p>Tu dirección IP: <strong id="ip"></strong></p>
 
-    <script>
-        // Obtener la fecha actual
-        var fechaActual = new Date();
-        var fechaElemento = document.getElementById('fecha');
-        fechaElemento.textContent = fechaActual.toLocaleString();
+    <div class="rombo">
+        <div class="nombre-app">Mi App</div>
+    </div>
 
-        // Obtener la dirección IP del cliente
-        fetch('https://api64.ipify.org?format=json')
-            .then(response => response.json())
-            .then(data => {
-                var ipElemento = document.getElementById('ip');
-                ipElemento.textContent = data.ip;
-            })
-            .catch(error => {
-                console.error('Error al obtener la dirección IP:', error);
-            });
-    </script>
 </body>
 </html>
-
