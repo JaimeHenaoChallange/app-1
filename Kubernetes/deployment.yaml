@@ -2,8 +2,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hw-deploy-app-1
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: argocdnotification1
+    notifications.argoproj.io/subscribe.on-sync-failed.slack: argocdnotification1
+    notifications.argoproj.io/subscribe.on-health-degraded.slack: argocdnotification1
 spec:
-  replicas: 1  # Ajusta el número de replicas según tus necesidades
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -19,6 +23,6 @@ spec:
     spec:
       containers:
       - name: hw-container-app-1
-        image: jaimehenao8126/kantox:badf82cdae1661342702a18db60aca364c20489d
+        image: jaimehenao8126/kantox:20607bb0cef680f386acac1c6c49158ae11f7c1e
         ports:
         - containerPort: 80
