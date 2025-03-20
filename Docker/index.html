@@ -10,6 +10,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
             background-color: #f0f0f0;
         }
@@ -19,6 +20,7 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
+            margin-bottom: 20px;
         }
         input, select {
             margin: 10px 0;
@@ -34,12 +36,24 @@
             border-radius: 5px;
             cursor: pointer;
             width: 100%;
+            margin-top: 10px;
         }
         button:hover {
             background-color: #2980b9;
         }
         .result {
             margin-top: 20px;
+        }
+        .historial {
+            margin-top: 20px;
+            width: 300px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .historial p {
+            margin: 5px 0;
         }
     </style>
 </head>
@@ -67,9 +81,25 @@
         </form>
 
         <div class="result" id="result"></div>
+        <button id="guardar">Guardar Resultados</button>
+    </div>
+
+    <div class="historial" id="historial">
+        <h3>Historial de Resultados</h3>
+        <div id="historialResultados"></div>
     </div>
 
     <script>
+        const historialResultados = JSON.parse(localStorage.getItem('historial')) || [];
+
+        function mostrarHistorial() {
+            const historialDiv = document.getElementById('historialResultados');
+            historialDiv.innerHTML = '';
+            historialResultados.forEach((item, index) => {
+                historialDiv.innerHTML += `<p>${index + 1}: ${item}</p>`;
+            });
+        }
+
         document.getElementById('pesoForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
@@ -111,18 +141,32 @@
             }
 
             // Mostrar resultados
-            document.getElementById('result').innerHTML = `
-                <p>Masa: ${masa.toFixed(2)} kg</p>
-                <p>Peso en Marte: ${pesoMarte.toFixed(2)} N</p>
-                <p>Peso en la Luna: ${pesoLuna.toFixed(2)} N</p>
-                <p>IMC: ${imc.toFixed(2)} (${clasificacionIMC})</p>
-            `;
+            const resultadoTexto = `
+                Masa: ${masa.toFixed(2)} kg<br>
+                Peso en Marte: ${pesoMarte.toFixed(2)} N<br>
+                Peso en la Luna: ${pesoLuna.toFixed(2)} N<br>
+                IMC: ${imc.toFixed(2)} (${clasificacionIMC})`;
+
+            document.getElementById('result').innerHTML = resultadoTexto;
         });
 
         document.getElementById('limpiar').addEventListener('click', function() {
             document.getElementById('pesoForm').reset();
             document.getElementById('result').innerHTML = '';
         });
+
+        document.getElementById('guardar').addEventListener('click', function() {
+            const resultadoTexto = document.getElementById('result').innerHTML;
+            if (resultadoTexto) {
+                historialResultados.push(resultadoTexto);
+                localStorage.setItem('historial', JSON.stringify(historialResultados));
+                mostrarHistorial();
+            } else {
+                alert("No hay resultados para guardar.");
+            }
+        });
+
+        mostrarHistorial();
     </script>
 
 </body>
