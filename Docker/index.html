@@ -3,39 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rombo Geométrico</title>
+    <title>Calculadora de Peso</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
         }
-        .rombo {
-            width: 100px;
-            height: 100px;
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px;
             background-color: #3498db;
-            transform: rotate(45deg);
-            position: relative;
-        }
-        .nombre-app {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             color: white;
-            font-size: 20px;
-            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <div class="rombo">
-        <div class="nombre-app">Mi App</div>
+    <div class="form-container">
+        <h2>Calculadora de Peso</h2>
+        <form id="pesoForm">
+            <label for="peso">Peso (kg):</label>
+            <input type="number" id="peso" required>
+
+            <label for="estatura">Estatura (cm):</label>
+            <input type="number" id="estatura" required>
+
+            <button type="submit">Calcular</button>
+        </form>
+
+        <div class="result" id="result"></div>
     </div>
+
+    <script>
+        document.getElementById('pesoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const peso = parseFloat(document.getElementById('peso').value);
+            const estatura = parseFloat(document.getElementById('estatura').value) / 100; // convertimos cm a m
+
+            // Cálculo de la masa (en kg)
+            const masa = peso; // La masa permanece constante
+
+            // Gravedad en la Tierra, Marte y la Luna (en m/s²)
+            const gravedadTierra = 9.81;
+            const gravedadMarte = 3.721;
+            const gravedadLuna = 1.622;
+
+            // Cálculo de peso en Marte y la Luna
+            const pesoMarte = masa * gravedadMarte;
+            const pesoLuna = masa * gravedadLuna;
+
+            // Mostrar resultados
+            document.getElementById('result').innerHTML = `
+                <p>Masa: ${masa.toFixed(2)} kg</p>
+                <p>Peso en Marte: ${pesoMarte.toFixed(2)} N</p>
+                <p>Peso en la Luna: ${pesoLuna.toFixed(2)} N</p>
+            `;
+        });
+    </script>
 
 </body>
 </html>
