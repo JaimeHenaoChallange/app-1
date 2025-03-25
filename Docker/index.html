@@ -3,77 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conexión con Modelos de IA</title>
+    <title>Calculadora de Peso y Figuras Geométricas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f4f4f4;
+            background-color: #e9ecef;
         }
         h1 {
-            color: #333;
+            color: #007bff;
+            text-align: center;
         }
         .container {
-            max-width: 600px;
+            max-width: 400px;
             margin: auto;
             background: #fff;
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        textarea {
-            width: 100%;
-            height: 100px;
-            margin-bottom: 10px;
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #333;
+        }
+        input[type="number"] {
+            width: calc(100% - 20px);
             padding: 10px;
             border-radius: 5px;
             border: 1px solid #ccc;
+            margin-bottom: 15px;
         }
         button {
             background-color: #28a745;
             color: white;
-            padding: 10px 15px;
+            padding: 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            width: 100%;
         }
         button:hover {
             background-color: #218838;
         }
-        .response {
+        .result {
             margin-top: 20px;
             padding: 10px;
             background-color: #e9ecef;
             border-radius: 5px;
+        }
+        .shape {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #007bff;
+            margin: 10px auto;
+        }
+        .rectangle {
+            width: 200px;
+            height: 100px;
+            background-color: #ffc107;
+            margin: 10px auto;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Conexión con Modelos de IA</h1>
-    <textarea id="inputText" placeholder="Ingresa tu texto aquí..."></textarea>
-    <button id="submitButton">Enviar</button>
-    <div class="response" id="responseText" style="display: none;"></div>
+    <h1>Calculadora de Peso</h1>
+    <label for="weight">Peso (kg):</label>
+    <input type="number" id="weight" placeholder="Ingresa tu peso" required>
+
+    <label for="height">Estatura (cm):</label>
+    <input type="number" id="height" placeholder="Ingresa tu estatura" required>
+
+    <button id="calculateButton">Calcular</button>
+
+    <div class="result" id="resultText" style="display: none;"></div>
+    
+    <div class="shape" id="shapes" style="display: none;">
+        <div class="circle"></div>
+        <div class="rectangle"></div>
+    </div>
 </div>
 
 <script>
-    document.getElementById('submitButton').onclick = function() {
-        const inputText = document.getElementById('inputText').value;
-        const responseText = document.getElementById('responseText');
-        
-        // Aquí se simula una llamada a un modelo de IA
-        // Reemplaza este bloque con la lógica de tu API de IA
-        if (inputText) {
-            // Simulación de respuesta del modelo
-            const simulatedResponse = `Respuesta del modelo de IA para: "${inputText}"`;
-            responseText.innerText = simulatedResponse;
-            responseText.style.display = 'block';
-        } else {
-            responseText.innerText = 'Por favor, ingresa un texto.';
-            responseText.style.display = 'block';
+    const gravity = {
+        'Tierra': 9.81,
+        'Luna': 1.62,
+        'Marte': 3.71,
+        'Júpiter': 24.79,
+        'Saturno': 10.44,
+        'Mercurio': 3.7,
+        'Venus': 8.87
+    };
+
+    document.getElementById('calculateButton').onclick = function() {
+        const weight = parseFloat(document.getElementById('weight').value);
+        const height = parseFloat(document.getElementById('height').value);
+
+        if (!weight || !height) {
+            alert("Por favor, completa todos los campos.");
+            return;
         }
+
+        let resultText = `<h3>Tu peso en otros planetas:</h3>`;
+        for (const planet in gravity) {
+            const weightOnPlanet = (weight * gravity[planet] / gravity['Tierra']).toFixed(2);
+            resultText += `<p>${planet}: ${weightOnPlanet} kg</p>`;
+        }
+
+        document.getElementById('resultText').innerHTML = resultText;
+        document.getElementById('resultText').style.display = 'block';
+        document.getElementById('shapes').style.display = 'block';
     };
 </script>
 
