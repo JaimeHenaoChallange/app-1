@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
       - name: hw-container-app-1
-        image: jaimehenao8126/poc-app-1:f121e825f687c5c9f8772b268d820b913a9ec1fa
+        image: jaimehenao8126/poc-app-1:3092c8e27e6132a8d89bd3e734d3ac0341e0f981
         ports:
         - containerPort: 80
