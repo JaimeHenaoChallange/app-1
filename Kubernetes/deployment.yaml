@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hw-deploy-app-1
-  namespace: default
+  namespace: poc
   labels:
     app: hw-app-1
     kuma.io/service: hw-app-1 # Etiqueta para Kuma
@@ -24,6 +24,6 @@ spec:
     spec:
       containers:
       - name: hw-container-app-1
-        image: jaimehenao8126/poc-app-1:2abd6abec54b6ad0e81d3db6d5287ee8fd541065
+        image: jaimehenao8126/poc-app-1:fb7ad614aebb55a38bab8baebbc7692e12082eb9
         ports:
         - containerPort: 80
