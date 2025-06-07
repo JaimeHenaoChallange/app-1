@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hw-deploy-app-1
-  namespace: poc
+  namespace: resources-review
   labels:
     app: hw-app-1
     kuma.io/service: hw-app-1 # Etiqueta para Kuma
